@@ -1,11 +1,13 @@
 2014-01-02 Carsten Windler  <carsten@windler-online.de>
     * Version 1.4.3 released:
+        - Attention: minimum PHP version raised to 5.3.0 due to use namespaces in the update script
         - Bug #34941: Only works if enabled debug or enable use_typoscript
         - Bug #54692: Redirection to mobile or standard URL not working when both URLs are too similar
         - Feature #50782: do not redirect exceptions (thanks to Stano Paska!)
         - Feature #53371: Default regexp updated from http://detectmobilebrowsers.com/ (9 September 2013)
         - Feature #54691: Extension Manager Update Script for mobile detection RegExps
         - Feature #54693: Ensure compatibility with Typo3 6.x
+        
 
 
 2011-12-18 Carsten Windler  <info@windler-consulting.de>

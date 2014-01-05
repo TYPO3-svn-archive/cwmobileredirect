@@ -49,10 +49,10 @@ Thanks to cwmobileredirect we know that you want this page to be displayed in mo
  *    )
  * [end]
  *
- * @param    string  $browserId  (Optional) if set, it is checked if the detected browser equals the given Id
- *                               Note: multiple ids are possible, just pass them comma-separated
+ * @param string $browserId - (Optional) if set, it is checked if the detected browser equals the given Id
+ *                            Note: multiple ids are possible, just pass them comma-separated
  *
- * @return   boolean true mobile mode is forced by GET parameter or by Cookie
+ * @return boolean - true mobile mode is forced by GET parameter or by Cookie
  *
  */
 function user_isMobileForced($browserId = null)
@@ -85,7 +85,7 @@ Thanks to cwmobileredirect we know that you want this page to be displayed in mo
  *    )
  * [end]
  *
- * @return   boolean true mobile mode is forced by GET parameter or by Cookie
+ * @return boolean - true mobile mode is forced by GET parameter or by Cookie
  *
  */
 function user_isStandardForced()
@@ -115,10 +115,10 @@ Thanks to cwmobileredirect we know that you called this page using a mobile!
  *
  * Pls see the constants MOBILEREDIRECT_USERAGENT_* below to find out which Ids are recognized!
  *
- * @param    string  $browserId  (Optional) if set, it is checked if the detected browser equals the given Id
+ * @param string $browserId - (Optional) if set, it is checked if the detected browser equals the given Id
  *                               Note: multiple ids are possible, just pass them comma-separated
  *
- * @return   boolean true if current browser is detected as a mobile, false otherwise
+ * @return boolean - true if current browser is detected as a mobile, false otherwise
  *
  */
 function user_isMobile($browserId = null)
@@ -141,7 +141,7 @@ function user_isMobile($browserId = null)
  *
  * This class is the main part of the 'cwmobileredirect' extension.
  *
- * @author  Carsten Windler (info@windler-consulting.de)
+ * @author  Carsten Windler (carsten@windler-online.de)
  *
  */
 class tx_cwmobileredirect
@@ -245,8 +245,7 @@ class tx_cwmobileredirect
     /**
      * Returns instance of this model
      *
-     * @return tx_mobileredirect
-     *
+     * @return tx_cwmobileredirect
      */
     public static function getInstance()
     {
@@ -263,8 +262,7 @@ class tx_cwmobileredirect
     /**
      * Constructor
      *
-     * @return void
-     *
+     * @return tx_cwmobileredirect
      */
     public function __construct()
     {
@@ -315,6 +313,7 @@ class tx_cwmobileredirect
     /**
      * Destructor
      *
+	 * @return void
      */
     public function __destruct()
     {
@@ -327,7 +326,7 @@ class tx_cwmobileredirect
     /**
      * First entry point - is always called by preprocessRequest hook to check usage of Typo Script
      *
-     * @return   void
+     * @return void
      *
      */
     public function firstEntryPoint()
@@ -355,10 +354,10 @@ class tx_cwmobileredirect
      *
      * We merge the TypoScript setup with the configuration array here
      *
-     * @param    array   $params     the params from the configArrayPostProc hook
-     * @param    object  $ref        a reference to the parent object
+     * @param array  $params - the params from the configArrayPostProc hook
+     * @param object $ref    - a reference to the parent object
      *
-     * @return   void
+     * @return void
      *
      */
     public function secondEntryPoint(&$params, &$ref)
@@ -382,7 +381,7 @@ class tx_cwmobileredirect
     /**
      * Check if redirect conditions apply
      *
-     * @return   void
+     * @return void
      *
      */
     public function checkRedirect()
@@ -454,10 +453,9 @@ class tx_cwmobileredirect
     /**
      * Redirect to mobile URL
      *
-     * @param    boolean     $addParam   If true, is_mobile_name will be added to mobile_url
+     * @param boolean $addParam - If true, is_mobile_name will be added to mobile_url
      *
-     * @return   void
-     *
+     * @return void
      */
     public function redirectToMobileUrl($addParam = true)
     {
@@ -473,10 +471,9 @@ class tx_cwmobileredirect
     /**
      * Redirect to standard URL
      *
-     * @param    boolean     $addParam   If true, no_mobile_name will be added to standard_url
+     * @param boolean $addParam - If true, no_mobile_name will be added to standard_url
      *
-     * @return   void
-     *
+     * @return void
      */
     public function redirectToStandardUrl($addParam = true)
     {
@@ -488,16 +485,14 @@ class tx_cwmobileredirect
     }
 
 
-
-    /**
-     * Sets the header location to redirect to given URL and exits directly afterwards
-     *
-     * @param    string     $addParam    If set, this param will be added (e.g. www.url.com?paramName)
-     *                                   Considers add_value_to_params settings
-     *
-     * @return   void
-     *
-     */
+	/**
+	 * Sets the header location to redirect to given URL and exits directly afterwards
+	 *
+	 * @param string $url      - The URL to redirect to
+	 * @param bool   $addParam - If set, this param will be added (e.g. www.url.com?paramName)
+	 *
+	 * @return void
+	 */
     protected function redirectTo($url, $addParam = false)
     {
         // add =1 to param if needed to solve problems with RealUrl and pageHandling
@@ -552,8 +547,7 @@ class tx_cwmobileredirect
     /**
      * Set the HTTP status used for redirects
      *
-     * @return   void
-     *
+     * @return void
      */
     protected function setHttpStatus()
     {
@@ -572,10 +566,9 @@ class tx_cwmobileredirect
     /**
      * Set the extension cookie
      *
-     * @param    $cookieValue        The cookie value to be set
+     * @param string $cookieValue - The cookie value to be set
      *
-     * @return   boolean
-     *
+     * @return boolean
      */
     protected function setExtensionCookie($cookieValue)
     {
@@ -593,12 +586,10 @@ class tx_cwmobileredirect
     /**
      * Determine if the requested URL is the mobile one
      *
-     * @return   boolean
-     *
+     * @return boolean
      */
     public function isMobileUrlRequested()
     {
-        // return (strpos($this->selfUrl, $this->_conf['mobile_url']) !== FALSE);
         return (strpos($this->selfUrl, $this->_conf['mobile_url']) === 0);
     }
 
@@ -607,13 +598,10 @@ class tx_cwmobileredirect
     /**
      * Determine if the requested URL is the standard one
      *
-     * @return   boolean
-     *
+     * @return boolean
      */
     public function isStandardUrlRequested()
     {
-		// @TODO delete this comment once we know it's working ok
-        // return (strpos($this->selfUrl, $this->_conf['standard_url']) !== FALSE);
         return (strpos($this->selfUrl, $this->_conf['standard_url']) === 0);
     }
 
@@ -623,7 +611,7 @@ class tx_cwmobileredirect
      * Determine if the standard mode is forced
      * (checks Cookie and GET params)
      *
-     * @return   boolean     true if standard mode is forced, false otherwise
+     * @return boolean - true if standard mode is forced, false otherwise
      *
      */
     public function isStandardForced()
@@ -645,8 +633,7 @@ class tx_cwmobileredirect
      * Determine if the mobile mode is forced
      * (checks Cookie and GET params)
      *
-     * @return   boolean     true if mobile mode is forced, false otherwise
-     *
+     * @return boolean - true if mobile mode is forced, false otherwise
      */
     public function isMobileForced()
     {
@@ -666,10 +653,9 @@ class tx_cwmobileredirect
     /**
      * Retrieve the requested URI
      *
-     * @param    boolean     $prependProtocol    If true, the used protocol is added
+     * @param boolean $prependProtocol - If true, the used protocol is added
      *
-     * @return   string
-     *
+     * @return string
      */
     private function getSelfUrl($prependProtocol = false)
     {
@@ -702,9 +688,9 @@ class tx_cwmobileredirect
     /**
      * Parse useragent to detect mobile
      *
-     * @param    string      $useragent      (optional) string to parse, if not given HTTP_USER_AGENT will be used
+     * @param string $useragent - (optional) string to parse, if not given HTTP_USER_AGENT will be used
      *
-     * @return   boolean     true if mobile detect, false otherwise
+     * @return boolean - true if mobile detect, false otherwise
      *
      */
     protected function detectMobile($useragent = NULL)
@@ -743,10 +729,9 @@ class tx_cwmobileredirect
      *
      * The result is also stored in $this->detectedBrowser
      *
-     * @param    string              $useragent      (optional) string to parse, if not given HTTP_USER_AGENT will be used
+     * @param string $useragent - (optional) string to parse, if not given HTTP_USER_AGENT will be used
      *
-     * @return   string|boolean      The browser name or false
-     *
+     * @return string|boolean - The browser name or false
      */
     protected function detectMobileBrowser($useragent = NULL)
     {
@@ -772,8 +757,7 @@ class tx_cwmobileredirect
     /**
      * Returns the detected browser name
      *
-     * @return  string|boolean    The detected browser name or false
-     *
+     * @return string|boolean - The detected browser name or false
      */
     public function getDetectedMobileBrowserName()
     {
@@ -790,10 +774,9 @@ class tx_cwmobileredirect
     /**
      * Returns the detected browser (mainly just a part of the user agent)
      *
-     * @see     Constants of this class
+     * @see Constants of this class
      *
-     * @return  string|boolean    The detected browser or false
-     *
+     * @return string|boolean - The detected browser or false
      */
     public function getDetectedMobileBrowser()
     {
@@ -810,10 +793,9 @@ class tx_cwmobileredirect
     /**
      * Setter for $detectedMobileBrowser
      *
-     * @param    string  $detectedMobileBrowser      Detected mobile browswer
+     * @param string $detectedMobileBrowser - Detected mobile browswer
      *
-     * @return   void
-     *
+     * @return void
      */
     protected function setDetectedMobileBrowser($detectedMobileBrowser)
     {
@@ -825,10 +807,9 @@ class tx_cwmobileredirect
     /**
      * Setter for $isMobileStatus
      *
-     * @param    boolean     $isMobile
+     * @param boolean $isMobile - the mobile status
      *
-     * @return   void
-     *
+     * @return void
      */
     protected function setIsMobile($isMobile)
     {
@@ -842,8 +823,7 @@ class tx_cwmobileredirect
      *
      * Calls $this->detectMobile(), if not done already
      *
-     * @return   boolean     true if current browser was detected as mobile, otherwise false
-     *
+     * @return boolean - true if current browser was detected as mobile, otherwise false
      */
     public function isMobile()
     {
@@ -861,13 +841,12 @@ class tx_cwmobileredirect
      *
      * depends on debug-Setting in Configuration
      *
-     * @param    string  $messageString
-     * @param    array   $dataVar
+     * @param string 		$messageString - The message
+     * @param array|boolean $dataVar       - An array to collect messages in
      *
-     * @return   void
-     *
+     * @return void
      */
-    protected function debugLog($messageString, $dataVar = FALSE)
+    protected function debugLog($messageString, $dataVar = false)
     {
         // debugging activated?
         if($this->_conf && empty($this->_conf['debug'])) {
@@ -875,8 +854,7 @@ class tx_cwmobileredirect
         }
 
         // yes, collect message
-        if(is_array($dataVar))
-        {
+        if(is_array($dataVar)) {
             $tempArray = array();
 
             foreach($dataVar as $key => $value) {
@@ -904,8 +882,7 @@ class tx_cwmobileredirect
     /**
      * Write the cumulated debug log into the header comment
      *
-     * @return   void
-     *
+     * @return void
      */
     protected function writeDebugLogArray()
     {
@@ -928,8 +905,7 @@ class tx_cwmobileredirect
     /**
      * Get requested params (if needed for keeping the requested URL)
      *
-     * @return   void
-     *
+     * @return void
      */
     protected function getRequestedParams()
     {
